@@ -1,0 +1,17 @@
+# Travis CI Configuration file
+# @link https://travis-ci.org/
+
+# ShellCheck is installed
+addons:
+  apt:
+    sources:
+    - debian-sid
+    packages:
+    - shellcheck
+
+script:
+  # Validates the included scripts
+  - shellcheck java/maven/create-maven-settings.sh
+  - shellcheck java/maven/deploy-site.sh
+  - shellcheck java/maven/deploy.sh
+  - shellcheck java/maven/load-travis-environment.sh
