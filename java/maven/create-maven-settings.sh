@@ -11,6 +11,9 @@
 # print it on the console or let it be accessed in any way.
 #
 # The following environmental variables are required by the script:
+# - VERSION_TYPE: string, the type of version of the code. One of 'release', 'develop' or 'other'
+#
+# The following environmental variables are required by the script, but read by Maven:
 # - DEPLOY_USER: string, user for the releases repo
 # - DEPLOY_PASSWORD: string, password for the releases repo
 # - DEPLOY_DEVELOP_USER: string, user for the development repo
@@ -19,7 +22,7 @@
 # - DEPLOY_DOCS_PASSWORD: string, password for the releases documentation site repo
 # - DEPLOY_DOCS_DEVELOP_USER: string, user for the development documentation site repo
 # - DEPLOY_DOCS_DEVELOP_PASSWORD: string, password for the development documentation site repo
-# - VERSION_TYPE: string, the type of version of the code. One of 'release', 'develop' or 'other'.
+#
 
 set -o nounset
 set -e
