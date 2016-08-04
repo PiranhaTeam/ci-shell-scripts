@@ -2,11 +2,11 @@
 #
 # Deploys the project artifact.
 #
-# Make sure you have the deployment configuration ready before using it, including
-# the environment variables which will indicate if the script is to be run or not.
+# Deployment should be done thoughtfully. Make sure everything is ready before
+# running this script.
 #
 # If everything is correct, the deployment will only occur with release or development
-# versions. And any pull request, in case the code comes from SCM, will be ignored.
+# versions. Any pull request, in case the code comes from SCM, will be ignored.
 #
 # Note that if required the DEPLOY environment variable can be used to stop the script
 # from running by setting it to 'false'.

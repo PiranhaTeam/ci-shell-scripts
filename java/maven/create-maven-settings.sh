@@ -4,7 +4,7 @@
 # the ~/settings.xml path, and its contents will be created from a series of
 # environmental variables.
 #
-# The most important information it will contain will be the connection settings for all
+# The most important information it contains will be the connection settings for all
 # the repositories used during deployment.
 #
 # For security reasons the data stored in the generated file should not be shared. Never

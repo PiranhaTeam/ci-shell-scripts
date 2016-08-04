@@ -2,19 +2,17 @@
 #
 # Sets up the CI environment.
 #
-# It is prepared for the Travis CI service, and will set up the environmental
-# variables for all the CI procedure, but mainly for deployment.
+# The script is meant to be run just after the CI process begins, to prepare
+# the environmental variables to be used for flow control, for example to
+# know if artifacts should be deployed or not.
 #
-# As this script will set environmetal variables it should be run as part of the
-# parent shell commands by using the 'source' command. For this reason no value is
-# returned, and the 'set' command is not used.
+# It is prepared for the Travis CI service, and expects several environmental
+# variables which exist by default on Travis environments.
 #
-# These variables will be used by the other scripts for flow control. Meaning
-# that they will be used to know if the other scripts will be executed, and
-# how.
-#
-# While the DEPLOY and DEPLOY_DOCS variables are set to a default value of false,
-# they should be taken care in the Travis configuration file.
+# Setting environmental variables through a script is not allowed by default.
+# To avoid this problem run this script as part of the parent shell commands
+# by using the 'source' command. This is also the reason for not returning any
+# value, and for not using the 'set' command.
 #
 # The following environmental variables are required by the script:
 # - TRAVIS_BRANCH: string, Travis variable with the name of the SCM branch from which the code was taken
@@ -24,16 +22,24 @@
 #
 # The following environmental variables will be set by the script:
 # - VERSION_TYPE: string, indicates if this is a release or development version
+# - PULL_REQUEST: boolean, indicates if this is a pull request
+#
+# The following environmental variables will be set by the script if they don't exist:
+# - DEPLOY: boolean, set to a default of false
+# - DEPLOY_DOCS: boolean, set to a default of false
+#
 
 # Flag to know if this is a pull request
 export PULL_REQUEST=$TRAVIS_PULL_REQUEST
 
 # Flag for deploying artifacts
+# Defaults to false
 if [ -z "$DEPLOY" ]; then
    export DEPLOY=false;
 fi
 
 # Flag for deploying documentation
+# Defaults to false
 if [ -z "$DEPLOY_DOCS" ]; then
    export DEPLOY_DOCS=false;
 fi
