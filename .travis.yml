@@ -14,4 +14,4 @@ script:
   - shellcheck java/maven/create-maven-settings.sh
   - shellcheck java/maven/deploy-site.sh
   - shellcheck java/maven/deploy.sh
-  - shellcheck java/maven/load-travis-environment.sh
+  - shellcheck travis/load-travis-environment.sh
