@@ -14,6 +14,8 @@
 # by using the 'source' command. This is also the reason for not returning any
 # value, and for not using the 'set' command.
 #
+# --- ENVIRONMENTAL VARIABLES ---
+#
 # The following environmental variables are required by the script:
 # - TRAVIS_BRANCH: string, Travis variable with the name of the SCM branch from which the code was taken
 # - TRAVIS_PULL_REQUEST: boolean, Travis CI flag indicating if this is a pull request

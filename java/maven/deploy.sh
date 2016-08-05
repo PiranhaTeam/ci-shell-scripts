@@ -11,6 +11,8 @@
 # Note that if required the DEPLOY environment variable can be used to stop the script
 # from running by setting it to 'false'.
 #
+# --- ENVIRONMENTAL VARIABLES ---
+#
 # The following environmental variables are used:
 # - DEPLOY: boolean, control flag for deployment, should be true to deploy
 # - PULL_REQUEST: boolean, indicates if this is a pull request, should be false for deployment
