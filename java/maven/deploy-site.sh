@@ -1,6 +1,7 @@
 #!/bin/bash
 #
-# Deploys the Maven site.
+# Function for deploying the project Maven site. A flow flag is received, indicating
+# if the deployment should be done or not.
 #
 # Deployment should be done thoughtfully. Make sure everything is ready before
 # running this script.
@@ -8,37 +9,39 @@
 # If everything is correct, the deployment will only occur with release or development
 # versions. Any pull request, in case the code comes from SCM, will be ignored.
 #
-# Note that if required the DEPLOY_DOCS environment variable can be used to stop the script
-# from running by setting it to 'false'.
+# Also a settings file will be read from the ~/settings.xml path.
 #
-# --- ENVIRONMENTAL VARIABLES ---
+# -- PARAMETERS --
 #
-# The following environmental variables are used:
-# - DEPLOY_DOCS: boolean, control flag for deployment, should be true to deploy
-# - PULL_REQUEST: boolean, indicates if this is a pull request, should be false for deployment
-# - VERSION_TYPE: string, the type of version of the code. One of 'release', 'develop' or 'other'.
+# The function expects the following parameters:
+# - A flow boolean flag, indicating if the script should be run or not.
+#
 
 set -o nounset
 set -e
 
-if [ "$DO_DEPLOY_DOCS" == "true" ]; then
+deploy_site () {
 
-   echo "Deploying Maven site"
+    if [ "$1" == "true" ]; then
 
-   mvn site site:deploy -P deployment --settings ~/settings.xml > site_output.txt
+       echo "Deploying Maven site"
 
-   head -50 site_output.txt
-   echo " "
-   echo "(...)"
-   echo " "
-   tail -50 site_output.txt
+       mvn site site:deploy -P deployment --settings ~/settings.xml > site_output.txt
 
-   exit 0
+       head -50 site_output.txt
+       echo " "
+       echo "(...)"
+       echo " "
+       tail -50 site_output.txt
 
-else
+       exit 0
 
-   echo "Maven site won't be deployed"
+    else
 
-   exit 0
+       echo "Maven site won't be deployed"
 
-fi
+       exit 0
+
+    fi
+
+}

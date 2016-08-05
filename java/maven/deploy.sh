@@ -1,6 +1,7 @@
 #!/bin/bash
 #
-# Deploys the project artifact.
+# Function for deploying the project artifact. A flow flag is received, indicating
+# if the deployment should be done or not.
 #
 # Deployment should be done thoughtfully. Make sure everything is ready before
 # running this script.
@@ -8,31 +9,33 @@
 # If everything is correct, the deployment will only occur with release or development
 # versions. Any pull request, in case the code comes from SCM, will be ignored.
 #
-# Note that if required the DEPLOY environment variable can be used to stop the script
-# from running by setting it to 'false'.
+# Also a settings file will be read from the ~/settings.xml path.
 #
-# --- ENVIRONMENTAL VARIABLES ---
+# -- PARAMETERS --
 #
-# The following environmental variables are used:
-# - DEPLOY: boolean, control flag for deployment, should be true to deploy
-# - PULL_REQUEST: boolean, indicates if this is a pull request, should be false for deployment
-# - VERSION_TYPE: string, the type of version of the code. One of 'release', 'develop' or 'other'.
+# The function expects the following parameters:
+# - A flow boolean flag, indicating if the script should be run or not.
+#
 
 set -o nounset
 set -e
 
-if [ "$DO_DEPLOY" == "true" ]; then
+deploy () {
 
-   echo "Deploying Java artifact"
+    if [ "$1" == "true" ]; then
 
-   mvn deploy -P deployment --settings ~/settings.xml
+       echo "Deploying Java artifact"
 
-   exit 0
+       mvn deploy -P deployment --settings ~/settings.xml
 
-else
+       exit 0
 
-   echo "Java artifact won't be deployed"
+    else
 
-   exit 0
+       echo "Java artifact won't be deployed"
 
-fi
+       exit 0
+
+    fi
+
+}

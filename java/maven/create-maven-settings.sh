@@ -1,7 +1,7 @@
 #!/bin/bash
 #
-# Creates the Maven settings file for the CI process, storing it in the ~/settings.xml
-# path.
+# Function for creating the Maven settings file for the CI process, storing it in the
+# ~/settings.xml path.
 #
 # It will take care of two pieces of data:
 # - Servers settings
@@ -32,6 +32,11 @@
 # - deploy-site-release: for setting up the release site deployment
 # - deploy-site-development: for setting up the development site deployment
 #
+# -- PARAMETERS --
+#
+# The function expects the following parameters:
+# - A string, one of release|develop, otherwise it is ignored.
+#
 # --- ENVIRONMENTAL VARIABLES ---
 #
 # The following environmental variables are required by the script:
@@ -51,71 +56,75 @@
 set -o nounset
 set -e
 
-{
-   echo "<settings>";
+create-maven-settings (){
 
-   # ----------------
-   # Servers settings
-   # ----------------
+    {
+       echo "<settings>";
 
-   echo "<servers>";
+       # ----------------
+       # Servers settings
+       # ----------------
 
-   # Releases artifacts server
-   echo "<server>";
-      echo "<id>releases</id>";
-      echo "<username>\${env.DEPLOY_USER}</username>";
-      echo "<password>\${env.DEPLOY_PASSWORD}</password>";
-   echo "</server>";
-   # Release site server
-   echo "<server>";
-      echo "<id>site</id>";
-      echo "<username>\${env.DEPLOY_DOCS_USER}</username>";
-      echo "<password>\${env.DEPLOY_DOCS_PASSWORD}</password>";
-   echo "</server>";
+       echo "<servers>";
 
-   # Development artifacts server
-   echo "<server>";
-      echo "<id>snapshots</id>";
-      echo "<username>\${env.DEPLOY_DEVELOP_USER}</username>";
-      echo "<password>\${env.DEPLOY_DEVELOP_PASSWORD}</password>";
-   echo "</server>";
-   # Release site server
-   echo "<server>";
-      echo "<id>site-development</id>";
-      echo "<username>\${env.DEPLOY_DOCS_DEVELOP_USER}</username>";
-      echo "<password>\${env.DEPLOY_DOCS_DEVELOP_PASSWORD}</password>";
-   echo "</server>";
+       # Releases artifacts server
+       echo "<server>";
+          echo "<id>releases</id>";
+          echo "<username>\${env.DEPLOY_USER}</username>";
+          echo "<password>\${env.DEPLOY_PASSWORD}</password>";
+       echo "</server>";
+       # Release site server
+       echo "<server>";
+          echo "<id>site</id>";
+          echo "<username>\${env.DEPLOY_DOCS_USER}</username>";
+          echo "<password>\${env.DEPLOY_DOCS_PASSWORD}</password>";
+       echo "</server>";
 
-   echo "</servers>";
+       # Development artifacts server
+       echo "<server>";
+          echo "<id>snapshots</id>";
+          echo "<username>\${env.DEPLOY_DEVELOP_USER}</username>";
+          echo "<password>\${env.DEPLOY_DEVELOP_PASSWORD}</password>";
+       echo "</server>";
+       # Release site server
+       echo "<server>";
+          echo "<id>site-development</id>";
+          echo "<username>\${env.DEPLOY_DOCS_DEVELOP_USER}</username>";
+          echo "<password>\${env.DEPLOY_DOCS_DEVELOP_PASSWORD}</password>";
+       echo "</server>";
 
-   # ---------------------
-   # Ends servers settings
-   # ---------------------
+       echo "</servers>";
 
-   # --------------
-   # Active profile
-   # --------------
+       # ---------------------
+       # Ends servers settings
+       # ---------------------
 
-   # These profiles are used to set the site repository info
-   if [ "$VERSION_TYPE" == "release" ]; then
-      # Release version
-      echo "<activeProfiles>"
-         echo "<activeProfile>deploy-site-release</activeProfile>"
-      echo "</activeProfiles>"
-   elif [ "$VERSION_TYPE" == "develop" ]; then
-      # Development version
-      echo "<activeProfiles>"
-         echo "<activeProfile>deploy-site-development</activeProfile>"
-      echo "</activeProfiles>"
-   fi
+       # --------------
+       # Active profile
+       # --------------
 
-   # -------------------
-   # Ends active profile
-   # -------------------
+       # These profiles are used to set the site repository info
+       if [ "$1" == "release" ]; then
+          # Release version
+          echo "<activeProfiles>"
+             echo "<activeProfile>deploy-site-release</activeProfile>"
+          echo "</activeProfiles>"
+       elif [ "$1" == "develop" ]; then
+          # Development version
+          echo "<activeProfiles>"
+             echo "<activeProfile>deploy-site-development</activeProfile>"
+          echo "</activeProfiles>"
+       fi
 
-   echo "</settings>";
-} >> ~/settings.xml
+       # -------------------
+       # Ends active profile
+       # -------------------
 
-echo "Created Maven settings file"
+       echo "</settings>";
+    } >> ~/settings.xml
 
-exit 0
+    echo "Created Maven settings file"
+
+    exit 0
+
+}
