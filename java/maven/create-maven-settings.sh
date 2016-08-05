@@ -39,9 +39,6 @@
 #
 # --- ENVIRONMENTAL VARIABLES ---
 #
-# The following environmental variables are required by the script:
-# - VERSION_TYPE: string, the type of version of the code. One of 'release', 'develop' or 'other'
-#
 # The following environmental variables are required by the script, but read by Maven:
 # - DEPLOY_USER: string, user for the releases repo
 # - DEPLOY_PASSWORD: string, password for the releases repo

@@ -14,7 +14,7 @@
 # -- PARAMETERS --
 #
 # The function expects the following parameters:
-# - A flow boolean flag, indicating if the script should be run or not.
+# - A flow control boolean flag, indicating if the script should be run or not.
 #
 
 set -o nounset
@@ -22,6 +22,7 @@ set -e
 
 deploy () {
 
+    # Expects a flow control parameter
     if [ "$1" == "true" ]; then
 
        echo "Deploying Java artifact"
