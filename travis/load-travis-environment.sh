@@ -53,8 +53,22 @@ else
    export VERSION_TYPE=other;
 fi
 
+# Sets actual artifacts deployment flag
+if [ "$DEPLOY" == "true" ] && [ "$PULL_REQUEST" == "false" ] && [ "$VERSION_TYPE" != "other" ]; then
+   export DO_DEPLOY=true;
+else
+   export DO_DEPLOY=true;
+fi
+
+# Sets actual documentation deployment flag
+if [ "$DEPLOY_DOCS" == "true" ] && [ "$PULL_REQUEST" == "false" ] && [ "$VERSION_TYPE" != "other" ]; then
+   export DO_DEPLOY_DOCS=true;
+else
+   export DO_DEPLOY_DOCS=true;
+fi
+
 echo "CI environmental variables set:";
 echo "PULL_REQUEST: $PULL_REQUEST";
 echo "VERSION_TYPE: $VERSION_TYPE";
-echo "DEPLOY: $DEPLOY";
-echo "DEPLOY_DOCS: $DEPLOY_DOCS";
+echo "DO_DEPLOY: $DO_DEPLOY";
+echo "DO_DEPLOY_DOCS: $DO_DEPLOY_DOCS";

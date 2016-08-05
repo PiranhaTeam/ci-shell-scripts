@@ -19,7 +19,7 @@
 set -o nounset
 set -e
 
-if [ "$DEPLOY_DOCS" == "true" ] && [ "$PULL_REQUEST" == "false" ] && [ "$VERSION_TYPE" != "other" ]; then
+if [ "$DO_DEPLOY_DOCS" == "true" ]; then
 
    echo "Deploying Maven site"
 
