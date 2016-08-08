@@ -59,14 +59,14 @@ fi
 if [ "$DEPLOY" == "true" ] && [ "$PULL_REQUEST" == "false" ] && [ "$VERSION_TYPE" != "other" ]; then
    export DO_DEPLOY=true;
 else
-   export DO_DEPLOY=true;
+   export DO_DEPLOY=false;
 fi
 
 # Sets actual documentation deployment flag
 if [ "$DEPLOY_DOCS" == "true" ] && [ "$PULL_REQUEST" == "false" ] && [ "$VERSION_TYPE" != "other" ]; then
    export DO_DEPLOY_DOCS=true;
 else
-   export DO_DEPLOY_DOCS=true;
+   export DO_DEPLOY_DOCS=false;
 fi
 
 echo "CI environmental variables set:";
