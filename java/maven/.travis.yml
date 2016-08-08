@@ -21,20 +21,20 @@ matrix:
       env: DEPLOY_DOCS=true
 
 before_install:
-  # Scripts are set as executable
-  - chmod +x ./.scripts/load-travis-environment.sh
-  - chmod +x ./.scripts/create-maven-settings.sh
-  - chmod +x ./.scripts/deploy.sh
-  - chmod +x ./.scripts/deploy-site.sh
+  # Gets scripts
+  - git clone https://github.com/Bernardo-MG/ci-shell-scripts.git
+  # Sets scripts as executable
+  - chmod -R +x ci-shell-scripts/*
   # Prepares CI environment
-  - source ./.scripts/load-travis-environment.sh
+  - source ci-shell-scripts/travis/load-travis-environment.sh
+before_script:
   # Creates Maven settings
-  - ./.scripts/create-maven-settings.sh
+  - ci-shell-scripts/java/maven/create-maven-settings.sh $VERSION_TYPE
 script:
   # Unit and integration tests are run
   - mvn clean verify
 after_success:
   # Documentation deployment script
-  - ./.scripts/deploy-site.sh
+  - ci-shell-scripts/java/maven/deploy-site.sh $DO_DEPLOY_DOCS
   # Code artifacts deployment script
-  - ./.scripts/deploy.sh
+  - ci-shell-scripts/java/maven/deploy.sh $DO_DEPLOY
