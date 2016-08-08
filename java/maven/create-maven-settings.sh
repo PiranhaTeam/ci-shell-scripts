@@ -50,80 +50,78 @@
 # - DEPLOY_DOCS_DEVELOP_PASSWORD: string, password for the development documentation site repo
 #
 
+# Fails if any used variable is not set
+set -o nounset
 # Fails if any commands returns a non-zero value
 set -e
 
-create-maven-settings (){
+v_type=${1:-}
 
-    v_type=${1:-}
+{
+   echo "<settings>";
 
-    {
-       echo "<settings>";
+   # ----------------
+   # Servers settings
+   # ----------------
 
-       # ----------------
-       # Servers settings
-       # ----------------
+   echo "<servers>";
 
-       echo "<servers>";
+   # Releases artifacts server
+   echo "<server>";
+      echo "<id>releases</id>";
+      echo "<username>\${env.DEPLOY_USER}</username>";
+      echo "<password>\${env.DEPLOY_PASSWORD}</password>";
+   echo "</server>";
+   # Release site server
+   echo "<server>";
+      echo "<id>site</id>";
+      echo "<username>\${env.DEPLOY_DOCS_USER}</username>";
+      echo "<password>\${env.DEPLOY_DOCS_PASSWORD}</password>";
+   echo "</server>";
 
-       # Releases artifacts server
-       echo "<server>";
-          echo "<id>releases</id>";
-          echo "<username>\${env.DEPLOY_USER}</username>";
-          echo "<password>\${env.DEPLOY_PASSWORD}</password>";
-       echo "</server>";
-       # Release site server
-       echo "<server>";
-          echo "<id>site</id>";
-          echo "<username>\${env.DEPLOY_DOCS_USER}</username>";
-          echo "<password>\${env.DEPLOY_DOCS_PASSWORD}</password>";
-       echo "</server>";
+   # Development artifacts server
+   echo "<server>";
+      echo "<id>snapshots</id>";
+      echo "<username>\${env.DEPLOY_DEVELOP_USER}</username>";
+      echo "<password>\${env.DEPLOY_DEVELOP_PASSWORD}</password>";
+   echo "</server>";
+   # Release site server
+   echo "<server>";
+      echo "<id>site-development</id>";
+      echo "<username>\${env.DEPLOY_DOCS_DEVELOP_USER}</username>";
+      echo "<password>\${env.DEPLOY_DOCS_DEVELOP_PASSWORD}</password>";
+   echo "</server>";
 
-       # Development artifacts server
-       echo "<server>";
-          echo "<id>snapshots</id>";
-          echo "<username>\${env.DEPLOY_DEVELOP_USER}</username>";
-          echo "<password>\${env.DEPLOY_DEVELOP_PASSWORD}</password>";
-       echo "</server>";
-       # Release site server
-       echo "<server>";
-          echo "<id>site-development</id>";
-          echo "<username>\${env.DEPLOY_DOCS_DEVELOP_USER}</username>";
-          echo "<password>\${env.DEPLOY_DOCS_DEVELOP_PASSWORD}</password>";
-       echo "</server>";
+   echo "</servers>";
 
-       echo "</servers>";
+   # ---------------------
+   # Ends servers settings
+   # ---------------------
 
-       # ---------------------
-       # Ends servers settings
-       # ---------------------
+   # --------------
+   # Active profile
+   # --------------
 
-       # --------------
-       # Active profile
-       # --------------
+   # These profiles are used to set the site repository info
+   if [ "$v_type" == "release" ]; then
+      # Release version
+      echo "<activeProfiles>"
+         echo "<activeProfile>deploy-site-release</activeProfile>"
+      echo "</activeProfiles>"
+   elif [ "$v_type" == "develop" ]; then
+      # Development version
+      echo "<activeProfiles>"
+         echo "<activeProfile>deploy-site-development</activeProfile>"
+      echo "</activeProfiles>"
+   fi
 
-       # These profiles are used to set the site repository info
-       if [ "$v_type" == "release" ]; then
-          # Release version
-          echo "<activeProfiles>"
-             echo "<activeProfile>deploy-site-release</activeProfile>"
-          echo "</activeProfiles>"
-       elif [ "$v_type" == "develop" ]; then
-          # Development version
-          echo "<activeProfiles>"
-             echo "<activeProfile>deploy-site-development</activeProfile>"
-          echo "</activeProfiles>"
-       fi
+   # -------------------
+   # Ends active profile
+   # -------------------
 
-       # -------------------
-       # Ends active profile
-       # -------------------
+   echo "</settings>";
+} >> ~/settings.xml
 
-       echo "</settings>";
-    } >> ~/settings.xml
+echo "Created Maven settings file"
 
-    echo "Created Maven settings file"
-
-    exit 0
-
-}
+exit 0

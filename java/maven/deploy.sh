@@ -17,28 +17,26 @@
 # - A flow control boolean flag, indicating if the script should be run or not.
 #
 
+# Fails if any used variable is not set
+set -o nounset
 # Fails if any commands returns a non-zero value
 set -e
 
-deploy () {
+deploy=${1:-}
 
-    deploy=${1:-}
+# Expects a flow control parameter
+if [ "$deploy" == "true" ]; then
 
-    # Expects a flow control parameter
-    if [ "$deploy" == "true" ]; then
+   echo "Deploying Java artifact"
 
-       echo "Deploying Java artifact"
+   mvn deploy -P deployment --settings ~/settings.xml
 
-       mvn deploy -P deployment --settings ~/settings.xml
+   exit 0
 
-       exit 0
+else
 
-    else
+   echo "Java artifact won't be deployed"
 
-       echo "Java artifact won't be deployed"
+   exit 0
 
-       exit 0
-
-    fi
-
-}
+fi

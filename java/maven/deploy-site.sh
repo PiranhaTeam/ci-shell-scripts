@@ -17,34 +17,32 @@
 # - A flow control boolean flag, indicating if the script should be run or not.
 #
 
+# Fails if any used variable is not set
+set -o nounset
 # Fails if any commands returns a non-zero value
 set -e
 
-deploy_site () {
+deploy=${1:-}
 
-    deploy=${1:-}
+# Expects a flow control parameter
+if [ "$deploy" == "true" ]; then
 
-    # Expects a flow control parameter
-    if [ "$deploy" == "true" ]; then
+   echo "Deploying Maven site"
 
-       echo "Deploying Maven site"
+   mvn site site:deploy -P deployment --settings ~/settings.xml > site_output.txt
 
-       mvn site site:deploy -P deployment --settings ~/settings.xml > site_output.txt
+   head -50 site_output.txt
+   echo " "
+   echo "(...)"
+   echo " "
+   tail -50 site_output.txt
 
-       head -50 site_output.txt
-       echo " "
-       echo "(...)"
-       echo " "
-       tail -50 site_output.txt
+   exit 0
 
-       exit 0
+else
 
-    else
+   echo "Maven site won't be deployed"
 
-       echo "Maven site won't be deployed"
+   exit 0
 
-       exit 0
-
-    fi
-
-}
+fi
