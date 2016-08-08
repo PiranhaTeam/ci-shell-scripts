@@ -50,7 +50,7 @@
 # - DEPLOY_DOCS_DEVELOP_PASSWORD: string, password for the development documentation site repo
 #
 
-set -o nounset
+# Fails if any commands returns a non-zero value
 set -e
 
 create-maven-settings (){
