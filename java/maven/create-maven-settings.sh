@@ -55,6 +55,8 @@ set -e
 
 create-maven-settings (){
 
+    v_type=${1:-}
+
     {
        echo "<settings>";
 
@@ -101,12 +103,12 @@ create-maven-settings (){
        # --------------
 
        # These profiles are used to set the site repository info
-       if [ "$1" == "release" ]; then
+       if [ "$v_type" == "release" ]; then
           # Release version
           echo "<activeProfiles>"
              echo "<activeProfile>deploy-site-release</activeProfile>"
           echo "</activeProfiles>"
-       elif [ "$1" == "develop" ]; then
+       elif [ "$v_type" == "develop" ]; then
           # Development version
           echo "<activeProfiles>"
              echo "<activeProfile>deploy-site-development</activeProfile>"
