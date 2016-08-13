@@ -24,7 +24,6 @@
 #
 # The following environmental variables will be set by the script:
 # - VERSION_TYPE: string, indicates if this is a release or development version
-# - PULL_REQUEST: boolean, indicates if this is a pull request
 #
 # The following environmental variables will be set by the script if they don't exist:
 # - DEPLOY: boolean, set to a default of false
@@ -32,7 +31,7 @@
 #
 
 # Flag to know if this is a pull request
-export PULL_REQUEST=$TRAVIS_PULL_REQUEST
+pull_request=$TRAVIS_PULL_REQUEST
 
 # Flag for deploying artifacts
 # Defaults to false
@@ -56,21 +55,20 @@ else
 fi
 
 # Sets actual artifacts deployment flag
-if [ "$DEPLOY" == "true" ] && [ "$PULL_REQUEST" == "false" ] && [ "$VERSION_TYPE" != "other" ]; then
+if [ "$DEPLOY" == "true" ] && [ "$pull_request" == "false" ] && [ "$VERSION_TYPE" != "other" ]; then
    export DO_DEPLOY=true;
 else
    export DO_DEPLOY=false;
 fi
 
 # Sets actual documentation deployment flag
-if [ "$DEPLOY_DOCS" == "true" ] && [ "$PULL_REQUEST" == "false" ] && [ "$VERSION_TYPE" != "other" ]; then
+if [ "$DEPLOY_DOCS" == "true" ] && [ "$pull_request" == "false" ] && [ "$VERSION_TYPE" != "other" ]; then
    export DO_DEPLOY_DOCS=true;
 else
    export DO_DEPLOY_DOCS=false;
 fi
 
 echo "CI environmental variables set:";
-echo "PULL_REQUEST: $PULL_REQUEST";
 echo "VERSION_TYPE: $VERSION_TYPE";
 echo "DO_DEPLOY: $DO_DEPLOY";
 echo "DO_DEPLOY_DOCS: $DO_DEPLOY_DOCS";
