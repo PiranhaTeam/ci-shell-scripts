@@ -8,9 +8,10 @@ addons:
     - debian-sid
     packages:
     - shellcheck
-    - dpkg-dev
-    - devscripts
 
+before_install:
+  - sudo apt-get -qq update
+  - sudo apt-get install -y devscripts
 script:
   # Validates the included scripts
   - shellcheck java/maven/create-maven-settings.sh
