@@ -8,6 +8,7 @@ addons:
     - debian-sid
     packages:
     - shellcheck
+    - dpkg-dev
     - devscripts
 
 script:
