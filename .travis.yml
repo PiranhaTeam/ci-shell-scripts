@@ -8,9 +8,8 @@ addons:
     - debian-sid
     packages:
     - shellcheck
+    - devscripts
 
-before_install:
-  - sudo apt-get install debuild
 script:
   # Validates the included scripts
   - shellcheck java/maven/create-maven-settings.sh
