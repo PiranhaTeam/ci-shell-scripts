@@ -8,6 +8,8 @@ addons:
     - debian-sid
     packages:
     - shellcheck
+    # For packaging
+    - libdpkg-perl
     - dpkg-dev
     - build-essential
 
