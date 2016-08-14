@@ -8,10 +8,6 @@ addons:
     - debian-sid
     packages:
     - shellcheck
-    # For packaging
-    - libdpkg-perl
-    - dpkg-dev
-    - build-essential
 
 script:
   # Validates the included scripts
@@ -20,4 +16,4 @@ script:
   - shellcheck java/maven/deploy.sh
   - shellcheck travis/load-travis-environment.sh
   # Creates the package
-  - bzr builddeb -- -us -uc
+  - dpkg-buildpackage -rfakeroot -us -uc
