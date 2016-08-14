@@ -8,10 +8,8 @@ addons:
     - debian-sid
     packages:
     - shellcheck
+    - build-essential
 
-before_install:
-  - sudo apt-get -qq update
-  - sudo apt-get install -y devscripts
 script:
   # Validates the included scripts
   - shellcheck java/maven/create-maven-settings.sh
@@ -19,4 +17,4 @@ script:
   - shellcheck java/maven/deploy.sh
   - shellcheck travis/load-travis-environment.sh
   # Creates the package
-  - debuild -us -uc
+  - bzr builddeb -- -us -uc
