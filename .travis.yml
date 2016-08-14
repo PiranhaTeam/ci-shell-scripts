@@ -15,3 +15,5 @@ script:
   - shellcheck java/maven/deploy-site.sh
   - shellcheck java/maven/deploy.sh
   - shellcheck travis/load-travis-environment.sh
+  # Creates the package
+  - debuild -us -uc
