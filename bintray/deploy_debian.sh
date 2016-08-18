@@ -30,7 +30,7 @@ if [ "$deploy" == "true" ]; then
 
    echo "Deploying Debian package"
 
-   file_name="${package_name}_${version}_$architecture"
+   file_name="${package_name}_${version}_${architecture}.deb"
    file_path="../$file_name"
 
    curl -T "$file_path" -u"$DEPLOY_USER":"$DEPLOY_PASSWORD" -H "X-Bintray-Package:$package_name" -H "X-Bintray-Version:$version" "$repo_url$file_name"
