@@ -17,9 +17,11 @@ set -o nounset
 # Fails if any commands returns a non-zero value
 set -e
 
-deploy=${1:-}
+# deploy=${1:-}
 file_path=${2:-}
 deploy_url=${3:-}
+
+deploy=true
 
 # Expects a flow control parameter
 if [ "$deploy" == "true" ]; then
