@@ -20,16 +20,13 @@ set -e
 deploy=${1:-}
 file_path=${2:-}
 deploy_url=${3:-}
-distribution=${4:-}
-component=${5:-}
-architecture=${6:-}
 
 # Expects a flow control parameter
 if [ "$deploy" == "true" ]; then
 
    echo "Deploying Debian package"
 
-   curl -T $file_path -u$DEPLOY_USER:$DEPLOY_PASSWORD $deploy_url;deb_distribution=$distribution;deb_component=$component;deb_architecture=$architecture
+   curl -T "$file_path" -u"$DEPLOY_USER":"$DEPLOY_PASSWORD" "$deploy_url"
 
    exit 0
 
