@@ -17,13 +17,11 @@ set -o nounset
 # Fails if any commands returns a non-zero value
 set -e
 
-# deploy=${1:-}
+deploy=${1:-}
 distribution=${2:-}
 version=${3:-}
 architecture=${4:-}
 repo_url=${5:-}
-
-deploy=true
 
 # Expects a flow control parameter
 if [ "$deploy" == "true" ]; then
