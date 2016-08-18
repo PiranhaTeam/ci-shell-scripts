@@ -18,8 +18,10 @@ set -o nounset
 set -e
 
 # deploy=${1:-}
-file_path=${2:-}
-deploy_url=${3:-}
+package_name=${2:-}
+version=${3:-}
+architecture=${4:-}
+repo_url=${5:-}
 
 deploy=true
 
@@ -28,7 +30,10 @@ if [ "$deploy" == "true" ]; then
 
    echo "Deploying Debian package"
 
-   curl -T "$file_path" -u"$DEPLOY_USER":"$DEPLOY_PASSWORD" "$deploy_url"
+   file_name="$package_name_$version_$architecture"
+   file_path="../$file_name"
+
+   curl -T "$file_path" -u"$DEPLOY_USER":"$DEPLOY_PASSWORD" -H "X-Bintray-Package:$package_name" -H "X-Bintray-Version:$version" "$repo_url$file_name"
 
    exit 0
 

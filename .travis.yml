@@ -27,4 +27,4 @@ after_success:
   # Prepares CI environment
   - source ./travis/load-travis-environment.sh
   # Deploys
-  - ./bintray/deploy_debian.sh $DO_DEPLOY ../wandrell-ci-scripts_0.1.0_all.deb https://api.bintray.com/content/bernardo-mg/Debian/ci-shell-scripts/0.1.0/wandrell-ci-scripts_0.1.0_all.deb
+  - ./bintray/deploy_debian.sh $DO_DEPLOY ci-shell-scripts 0.1.0 all https://api.bintray.com/content/bernardo-mg/Debian/

@@ -1,5 +1,5 @@
 Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: wandrell-ci-scripts
+Upstream-Name: ci-shell-scripts
 Source: https://github.com/Bernardo-MG/ci-shell-scripts
 
 Files: *
