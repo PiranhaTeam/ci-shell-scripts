@@ -4,6 +4,8 @@
 # ShellCheck is installed
 addons:
   apt:
+    sources:
+    - debian-sid
     packages:
     - shellcheck
 
