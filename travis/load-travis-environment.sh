@@ -31,44 +31,44 @@
 #
 
 # Flag to know if this is a pull request
-pull_request=$TRAVIS_PULL_REQUEST
+pull_request=${TRAVIS_PULL_REQUEST}
 
 # Flag for deploying artifacts
 # Defaults to false
-if [ -z "$DEPLOY" ]; then
+if [ -z "${DEPLOY}" ]; then
    export DEPLOY=false;
 fi
 
 # Flag for deploying documentation
 # Defaults to false
-if [ -z "$DEPLOY_DOCS" ]; then
+if [ -z "${DEPLOY_DOCS}" ]; then
    export DEPLOY_DOCS=false;
 fi
 
 # Flag to know if this is a release or a development version
-if [ "$TRAVIS_BRANCH" == "master" ]; then
+if [ "${TRAVIS_BRANCH}" == "master" ]; then
    export VERSION_TYPE=release;
-elif [ "$TRAVIS_BRANCH" == "develop" ]; then
+elif [ "${TRAVIS_BRANCH}" == "develop" ]; then
    export VERSION_TYPE=develop;
 else
    export VERSION_TYPE=other;
 fi
 
 # Sets actual artifacts deployment flag
-if [ "$DEPLOY" == "true" ] && [ "$pull_request" == "false" ] && [ "$VERSION_TYPE" != "other" ]; then
+if [ "${DEPLOY}" == "true" ] && [ "${pull_request}" == "false" ] && [ "${VERSION_TYPE}" != "other" ]; then
    export DO_DEPLOY=true;
 else
    export DO_DEPLOY=false;
 fi
 
 # Sets actual documentation deployment flag
-if [ "$DEPLOY_DOCS" == "true" ] && [ "$pull_request" == "false" ] && [ "$VERSION_TYPE" != "other" ]; then
+if [ "${DEPLOY_DOCS}" == "true" ] && [ "${pull_request}" == "false" ] && [ "${VERSION_TYPE}" != "other" ]; then
    export DO_DEPLOY_DOCS=true;
 else
    export DO_DEPLOY_DOCS=false;
 fi
 
 echo "CI environmental variables set:";
-echo "VERSION_TYPE: $VERSION_TYPE";
-echo "DO_DEPLOY: $DO_DEPLOY";
-echo "DO_DEPLOY_DOCS: $DO_DEPLOY_DOCS";
+echo "VERSION_TYPE: ${VERSION_TYPE}";
+echo "DO_DEPLOY: ${DO_DEPLOY}";
+echo "DO_DEPLOY_DOCS: ${DO_DEPLOY_DOCS}";

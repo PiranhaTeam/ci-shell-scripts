@@ -103,12 +103,12 @@ v_type=${1:-}
    # --------------
 
    # These profiles are used to set the site repository info
-   if [ "$v_type" == "release" ]; then
+   if [ "${v_type}" == "release" ]; then
       # Release version
       echo "<activeProfiles>"
          echo "<activeProfile>deploy-site-release</activeProfile>"
       echo "</activeProfiles>"
-   elif [ "$v_type" == "develop" ]; then
+   elif [ "${v_type}" == "develop" ]; then
       # Development version
       echo "<activeProfiles>"
          echo "<activeProfile>deploy-site-development</activeProfile>"

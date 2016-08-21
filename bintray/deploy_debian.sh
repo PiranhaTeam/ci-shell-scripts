@@ -24,7 +24,7 @@ architecture=${4:-}
 repo_url=${5:-}
 
 # Expects a flow control parameter
-if [ "$deploy" == "true" ]; then
+if [ "${deploy}" == "true" ]; then
 
    echo "Deploying Debian package"
 
@@ -32,7 +32,7 @@ if [ "$deploy" == "true" ]; then
    file_path="../$file_name"
    deploy_url="${repo_url}${file_name};deb_distribution=${distribution};deb_component=${distribution};deb_architecture=${architecture}"
 
-   curl -T "$file_path" -u"$DEPLOY_USER":"$DEPLOY_PASSWORD" -H "X-Bintray-Package:$distribution" -H "X-Bintray-Version:$version" "$deploy_url"
+   curl -T "${file_path}" -u"${DEPLOY_USER}":"${DEPLOY_PASSWORD}" -H "X-Bintray-Package:${distribution}" -H "X-Bintray-Version:${version}" "${deploy_url}"
 
    exit 0
 
