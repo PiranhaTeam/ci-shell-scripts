@@ -36,6 +36,7 @@
 #
 # The function expects the following parameters:
 # - A string, one of release|develop, otherwise it is ignored.
+# - A string, optional, setting the path for the Maven settings file. The default value is ~/settings.xml.
 #
 # --- ENVIRONMENTAL VARIABLES ---
 #
@@ -56,6 +57,7 @@ set -o nounset
 set -e
 
 v_type=${1:-}
+file_path=${2:"~/settings.xml"}
 
 {
    echo "<settings>";
@@ -103,12 +105,12 @@ v_type=${1:-}
    # --------------
 
    # These profiles are used to set the site repository info
-   if [ "$v_type" == "release" ]; then
+   if [ "${v_type}" == "release" ]; then
       # Release version
       echo "<activeProfiles>"
          echo "<activeProfile>deploy-site-release</activeProfile>"
       echo "</activeProfiles>"
-   elif [ "$v_type" == "develop" ]; then
+   elif [ "${v_type}" == "develop" ]; then
       # Development version
       echo "<activeProfiles>"
          echo "<activeProfile>deploy-site-development</activeProfile>"
@@ -120,7 +122,7 @@ v_type=${1:-}
    # -------------------
 
    echo "</settings>";
-} >> ~/settings.xml
+} >> "${file_path}"
 
 echo "Created Maven settings file"
 

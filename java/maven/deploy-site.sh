@@ -25,7 +25,7 @@ set -e
 deploy=${1:-}
 
 # Expects a flow control parameter
-if [ "$deploy" == "true" ]; then
+if [ "${deploy}" == "true" ]; then
 
    echo "Deploying Maven site"
 
