@@ -59,6 +59,10 @@ set -e
 v_type=${1:-}
 file_path=${2:-"~/settings.xml"}
 
+# The settings file is created
+touch "${file_path}";
+
+# The contents of the file are created
 {
    echo "<settings>";
 
