@@ -14,7 +14,7 @@ addons:
 
 script:
   # Validates the included scripts
-  - find . -type f -name "*.sh" -exec shellcheck {} \;
+  - find . -type f -name "*.sh" -print0 | xargs -0 shellcheck
   # Creates the package
   - dpkg-buildpackage -rfakeroot -us -uc
 after_success:
