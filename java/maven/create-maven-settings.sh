@@ -36,7 +36,6 @@
 #
 # The function expects the following parameters:
 # - A string, one of release|develop, otherwise it is ignored.
-# - A string, optional, setting the path for the Maven settings file. The default value is ~/settings.xml.
 #
 # --- ENVIRONMENTAL VARIABLES ---
 #
@@ -57,10 +56,6 @@ set -o nounset
 set -e
 
 v_type=${1:-}
-file_path=${2:-"~/settings.xml"}
-
-# The settings file is created
-touch "${file_path}";
 
 # The contents of the file are created
 {
@@ -126,7 +121,7 @@ touch "${file_path}";
    # -------------------
 
    echo "</settings>";
-} >> "${file_path}"
+} >> ~/settings.xml
 
 echo "Created Maven settings file"
 
