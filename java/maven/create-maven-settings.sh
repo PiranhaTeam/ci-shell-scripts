@@ -57,7 +57,7 @@ set -o nounset
 set -e
 
 v_type=${1:-}
-file_path=${2:"~/settings.xml"}
+file_path=${2:-"~/settings.xml"}
 
 {
    echo "<settings>";
