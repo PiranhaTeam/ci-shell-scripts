@@ -30,7 +30,7 @@ profile=${1:-}
 if [ "${deploy}" == "true" ]; then
 
    echo "Deploying Java artifact"
-   if [ !-z "${profile}" ]; then
+   if [ ! -z "${profile}" ]; then
       mvn deploy -P "${profile}" --settings ~/settings.xml
    else
       mvn deploy --settings ~/settings.xml
