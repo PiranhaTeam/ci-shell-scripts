@@ -24,7 +24,7 @@ set -o nounset
 set -e
 
 deploy=${1:-}
-profile=${1:-}
+profile=${2:-}
 
 # Expects a flow control parameter
 if [ "${deploy}" == "true" ]; then
@@ -32,7 +32,7 @@ if [ "${deploy}" == "true" ]; then
    echo "Deploying Maven site"
 
    if [ ! -z "${profile}" ]; then
-      mvn site site:deploy -P ${profile} --settings ~/settings.xml > site_output.txt
+      mvn site site:deploy -P "${profile}" --settings ~/settings.xml > site_output.txt
    else
       mvn site site:deploy --settings ~/settings.xml > site_output.txt
    fi

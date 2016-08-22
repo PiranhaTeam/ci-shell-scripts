@@ -24,14 +24,14 @@ set -o nounset
 set -e
 
 deploy=${1:-}
-profile=${1:-}
+profile=${2:-}
 
 # Expects a flow control parameter
 if [ "${deploy}" == "true" ]; then
 
    echo "Deploying Java artifact"
    if [ ! -z "${profile}" ]; then
-      mvn deploy -P ${profile} --settings ~/settings.xml
+      mvn deploy -P "${profile}" --settings ~/settings.xml
    else
       mvn deploy --settings ~/settings.xml
    fi
