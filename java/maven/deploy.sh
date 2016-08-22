@@ -24,7 +24,7 @@ set -o nounset
 set -e
 
 deploy=${1:-}
-profile=${1:-}
+profile=${2:-}
 
 # Expects a flow control parameter
 if [ "${deploy}" == "true" ]; then
