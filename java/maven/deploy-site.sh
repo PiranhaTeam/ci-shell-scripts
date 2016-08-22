@@ -15,6 +15,7 @@
 #
 # The function expects the following parameters:
 # - A flow control boolean flag, indicating if the script should be run or not.
+# - A comma separated list of profiles, or an empty string for no profile.
 #
 
 # Fails if any used variable is not set
@@ -23,13 +24,18 @@ set -o nounset
 set -e
 
 deploy=${1:-}
+profile=${1:-}
 
 # Expects a flow control parameter
 if [ "${deploy}" == "true" ]; then
 
    echo "Deploying Maven site"
 
-   mvn site site:deploy -P deployment --settings ~/settings.xml > site_output.txt
+   if [ !-z "${profile}" ]; then
+      mvn site site:deploy -P "${profile}" --settings ~/settings.xml > site_output.txt
+   else
+      mvn site site:deploy --settings ~/settings.xml > site_output.txt
+   fi
 
    head -50 site_output.txt
    echo " "
