@@ -14,8 +14,8 @@
 # -- PARAMETERS --
 #
 # The function expects the following parameters:
-# - A flow control boolean flag, indicating if the script should be run or not.
-# - A comma separated list of profiles, or an empty string for no profile.
+# $1: A flow control boolean flag, indicating if the script should be run or not.
+# $2: A comma separated list of profiles, or an empty string for no profile.
 #
 
 # Fails if any used variable is not set

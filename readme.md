@@ -11,7 +11,7 @@ Shell scripts taking care of common jobs related to Continuous Integration. Whil
 
 These scripts should be imported into the project environment, and then run as part of the CI process. As these are just shell scripts they can be copied into any folder, and be run just by calling them.
 
-For example, to create the Maven settings file the following line can be used:
+For example, supposing the scripts are in the ~/.scripts folder, to create the Maven settings file the following line can be used:
 
 ```
 ~/.scripts/java/maven/create-maven-settings.sh $VERSION_TYPE
