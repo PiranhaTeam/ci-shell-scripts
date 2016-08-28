@@ -28,10 +28,18 @@
 # The following environmental variables will be set by the script if they don't exist:
 # - DEPLOY: boolean, set to a default of false
 # - DEPLOY_DOCS: boolean, set to a default of false
+# - TEST_DOCS: boolean, set to a default of false
+# - COVERAGE: boolean, set to a default of false
 #
 
 # Flag to know if this is a pull request
 pull_request=${TRAVIS_PULL_REQUEST}
+
+# Flag for testing docs
+# Defaults to false
+if [ -z "${TEST_DOCS}" ]; then
+   export TEST_DOCS=false;
+fi
 
 # Flag for deploying artifacts
 # Defaults to false
@@ -45,6 +53,12 @@ if [ -z "${DEPLOY_DOCS}" ]; then
    export DEPLOY_DOCS=false;
 fi
 
+# Flag for test coverage
+# Defaults to false
+if [ -z "${COVERAGE}" ]; then
+   export COVERAGE=false;
+fi
+
 # Flag to know if this is a release or a development version
 if [ "${TRAVIS_BRANCH}" == "master" ]; then
    export VERSION_TYPE=release;
@@ -52,6 +66,13 @@ elif [ "${TRAVIS_BRANCH}" == "develop" ]; then
    export VERSION_TYPE=develop;
 else
    export VERSION_TYPE=other;
+fi
+
+# Sets actual documentation testing flag
+if [ "${TEST_DOCS}" == "true" ] && [ "${pull_request}" == "false" ] && [ "${VERSION_TYPE}" != "other" ]; then
+   export DO_TEST_DOCS=true;
+else
+   export DO_TEST_DOCS=false;
 fi
 
 # Sets actual artifacts deployment flag
@@ -68,7 +89,16 @@ else
    export DO_DEPLOY_DOCS=false;
 fi
 
+# Sets actual documentation deployment flag
+if [ "${COVERAGE}" == "true" ] && [ "${pull_request}" == "false" ] && [ "${VERSION_TYPE}" != "other" ]; then
+   export DO_COVERAGE=true;
+else
+   export DO_COVERAGE=false;
+fi
+
 echo "CI environmental variables set:";
 echo "VERSION_TYPE: ${VERSION_TYPE}";
+echo "DO_TEST_DOCS: ${DO_TEST_DOCS}";
 echo "DO_DEPLOY: ${DO_DEPLOY}";
 echo "DO_DEPLOY_DOCS: ${DO_DEPLOY_DOCS}";
+echo "DO_COVERAGE: ${DO_COVERAGE}";

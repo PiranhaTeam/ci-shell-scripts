@@ -35,7 +35,7 @@
 # -- PARAMETERS --
 #
 # The function expects the following parameters:
-# - A string, one of release|develop, otherwise it is ignored.
+# $1: A string, one of release|develop, otherwise it is ignored.
 #
 # --- ENVIRONMENTAL VARIABLES ---
 #

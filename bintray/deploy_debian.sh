@@ -5,6 +5,13 @@
 # To increase security it takes authentication data from environmental
 # variables, using parameters only for non-sensitive data.
 #
+# -- PARAMETERS --
+# $1: flow control boolean flag, indicating if the script should be run or not.
+# $2: distribution name
+# $3: package version
+# $4: architecture supported
+# $5: Debian repo URL
+#
 # --- ENVIRONMENTAL VARIABLES ---
 #
 # The following environmental variables are required by the script, but read by Maven:
