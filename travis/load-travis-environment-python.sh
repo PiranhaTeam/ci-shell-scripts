@@ -26,7 +26,7 @@
 PYTHON_VERSION=${TRAVIS_PYTHON_VERSION}
 
 # Python version to use in testing
-PYTHON_VERSION_TEST="$(echo py"${python_v}" | tr -d . | sed -e 's/pypypy/pypy/')"
+PYTHON_VERSION_TEST="$(echo py"${PYTHON_VERSION}" | tr -d . | sed -e 's/pypypy/pypy/')"
 
 echo "CI environmental variables set:";
 echo "PYTHON_VERSION: ${PYTHON_VERSION}";
