@@ -28,10 +28,17 @@
 # The following environmental variables will be set by the script if they don't exist:
 # - DEPLOY: boolean, set to a default of false
 # - DEPLOY_DOCS: boolean, set to a default of false
+# - TEST_DOCS: boolean, set to a default of false
 #
 
 # Flag to know if this is a pull request
 pull_request=${TRAVIS_PULL_REQUEST}
+
+# Flag for testing docs
+# Defaults to false
+if [ -z "${TEST_DOCS}" ]; then
+   export TEST_DOCS=false;
+fi
 
 # Flag for deploying artifacts
 # Defaults to false
@@ -54,6 +61,13 @@ else
    export VERSION_TYPE=other;
 fi
 
+# Sets actual documentation testing flag
+if [ "${TEST_DOCS}" == "true" ] && [ "${pull_request}" == "false" ] && [ "${VERSION_TYPE}" != "other" ]; then
+   export DO_TEST_DOCS=true;
+else
+   export DO_TEST_DOCS=false;
+fi
+
 # Sets actual artifacts deployment flag
 if [ "${DEPLOY}" == "true" ] && [ "${pull_request}" == "false" ] && [ "${VERSION_TYPE}" != "other" ]; then
    export DO_DEPLOY=true;
@@ -70,5 +84,6 @@ fi
 
 echo "CI environmental variables set:";
 echo "VERSION_TYPE: ${VERSION_TYPE}";
+echo "DO_TEST_DOCS: ${DO_TEST_DOCS}";
 echo "DO_DEPLOY: ${DO_DEPLOY}";
 echo "DO_DEPLOY_DOCS: ${DO_DEPLOY_DOCS}";

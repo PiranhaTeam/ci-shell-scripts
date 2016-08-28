@@ -1,6 +1,19 @@
 #!/bin/bash
-# This script runs the normal tests
+#
+# Runs the tests for a specific profile.
+#
+# -- PARAMETERS --
+#
+# The function expects the following parameters:
+# $1: A flow control boolean flag, indicating if the script should be run or not.
+# $1: A string, containing the profile to run.
+#
 
-python_v=${1:-}
+tests=${1:-}
+profile=${2:-}
 
-tox -e "$(echo py"${python_v}" | tr -d . | sed -e 's/pypypy/pypy/')"
+if [ "${tests}" == "true" ]; then
+
+    tox -e "${profile}"
+
+fi
