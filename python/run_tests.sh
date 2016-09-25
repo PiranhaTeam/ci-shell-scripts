@@ -16,4 +16,12 @@ if [ "${tests}" == "true" ]; then
 
     tox -e "${profile}"
 
+   exit 0
+
+else
+
+   echo "Tests won't be run"
+
+   exit 0
+
 fi

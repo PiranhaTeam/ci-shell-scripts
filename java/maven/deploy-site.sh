@@ -32,16 +32,10 @@ if [ "${deploy}" == "true" ]; then
    echo "Deploying Maven site"
 
    if [ ! -z "${profile}" ]; then
-      mvn site site:deploy -P "${profile}" --settings ~/settings.xml > site_output.txt
+      mvn site site:deploy -P "${profile}" --settings ~/settings.xml
    else
-      mvn site site:deploy --settings ~/settings.xml > site_output.txt
+      mvn site site:deploy --settings ~/settings.xml
    fi
-
-   head -50 site_output.txt
-   echo " "
-   echo "(...)"
-   echo " "
-   tail -50 site_output.txt
 
    exit 0
 

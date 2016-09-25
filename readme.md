@@ -2,6 +2,13 @@
 
 Shell scripts taking care of common jobs related to Continuous Integration. While meant for [Travis CI][travis] these work on any Linux system.
 
+These scripts can be used in any project, but were prepared for my own ones, and in some cases may expect a specific way of working.
+
+To see some examples of how these scripts are meant to be used, take a look at these template projects:
+
+- [Library Maven Archetype][library-archetype]
+- [Cookiecutter Python Library][cookiecutter-python]
+
 ## Features
 
 - Setting up the Travis CI environment
@@ -52,6 +59,9 @@ If you wish to fork or modify the code, visit the [GitHub project page][scm], wh
 
 ## License
 The project has been released under the [MIT License][license].
+
+[library-archetype]: https://github.com/Bernardo-MG/library-maven-archetype
+[cookiecutter-python]: https://github.com/Bernardo-MG/cookiecutter-python-library
 
 [issues]: https://github.com/Bernardo-MG/ci-shell-scripts/issues
 [license]: http://www.opensource.org/licenses/mit-license.php
