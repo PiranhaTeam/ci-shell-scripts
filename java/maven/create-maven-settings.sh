@@ -78,6 +78,11 @@ v_type=${1:-}
       echo "<id>site</id>";
       echo "<username>\${env.DEPLOY_DOCS_USER}</username>";
       echo "<password>\${env.DEPLOY_DOCS_PASSWORD}</password>";
+      echo "<configuration>";
+         echo "<knownHostsProvider implementation=\"org.apache.maven.wagon.providers.ssh.knownhost.NullKnownHostProvider\">";
+            echo "<hostKeyChecking>no</hostKeyChecking>";
+         echo "</knownHostsProvider>";
+      echo "</configuration>";
    echo "</server>";
 
    # Development artifacts server
@@ -91,6 +96,11 @@ v_type=${1:-}
       echo "<id>site-development</id>";
       echo "<username>\${env.DEPLOY_DOCS_DEVELOP_USER}</username>";
       echo "<password>\${env.DEPLOY_DOCS_DEVELOP_PASSWORD}</password>";
+      echo "<configuration>";
+         echo "<knownHostsProvider implementation=\"org.apache.maven.wagon.providers.ssh.knownhost.NullKnownHostProvider\">";
+            echo "<hostKeyChecking>no</hostKeyChecking>";
+         echo "</knownHostsProvider>";
+      echo "</configuration>";
    echo "</server>";
 
    echo "</servers>";
