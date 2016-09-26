@@ -31,10 +31,11 @@ if [ "${deploy}" == "true" ]; then
 
    echo "Deploying Maven site"
 
+   # The echo is for the prompt when deploying through sftp
    if [ ! -z "${profile}" ]; then
-      mvn site site:deploy -P "${profile}" --settings ~/settings.xml
+      echo yes | mvn site site:deploy -P "${profile}" --settings ~/settings.xml
    else
-      mvn site site:deploy --settings ~/settings.xml
+      echo yes | mvn site site:deploy --settings ~/settings.xml
    fi
 
    exit 0
