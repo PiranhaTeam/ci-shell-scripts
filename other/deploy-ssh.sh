@@ -8,7 +8,7 @@ if [ "${deploy}" == "true" ]; then
 
     echo "Deploying files"
 
-    sshpass -p "$DEPLOY_PASSWORD" scp -r . "$DEPLOY_USERNAME@$DEPLOY_HOST:$DEPLOY_PATH";
+    sshpass -p "$DEPLOY_PASSWORD" scp -P "$DEPLOY_PORT" -r . "$DEPLOY_USERNAME@$DEPLOY_HOST:$DEPLOY_PATH";
 
 else
 
