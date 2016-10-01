@@ -8,7 +8,7 @@ if [ "${deploy}" == "true" ]; then
 
     echo "Deploying files"
 
-    sshpass -o 'StrictHostKeyChecking no' -p "$DEPLOY_PASSWORD" scp -P "$DEPLOY_PORT" -r ./* "$DEPLOY_USERNAME@$DEPLOY_HOST:$DEPLOY_PATH";
+    sshpass -p "$DEPLOY_PASSWORD" scp -o 'StrictHostKeyChecking no' -P "$DEPLOY_PORT" -r ./* "$DEPLOY_USERNAME@$DEPLOY_HOST:$DEPLOY_PATH";
 
 else
 
