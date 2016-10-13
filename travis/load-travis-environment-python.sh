@@ -5,10 +5,10 @@
 # This script handles just the Python specific variables, and should be run
 # along the main Travis CI environment script.
 #
-# Setting environmental variables through a script is not allowed by default.
-# To avoid this problem run this script as part of the parent shell commands
-# by using the 'source' command. This is also the reason for not returning any
-# value, and for not using the 'set' command.
+# Setting environmental variables through a script is not allowed by default
+# in Travis. To avoid this problem run this script as part of the parent shell
+# commands by using the 'source' command. This is also the reason for not
+# returning any value, and for not using the 'set' command.
 #
 # --- ENVIRONMENTAL VARIABLES ---
 #
