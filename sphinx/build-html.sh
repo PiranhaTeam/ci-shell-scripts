@@ -16,7 +16,7 @@ path=${2:-}
 if [ "${deploy}" == "true" ]; then
 
    echo "Building HTML Sphinx docs"
-   cd "$path"
+   cd "$path" || exit
    sphinx-build -b html -d ~/sphinx/build/doctrees source ~/sphinx/build/html
 
 else
