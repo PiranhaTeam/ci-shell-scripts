@@ -1,5 +1,5 @@
 {
   "name": "ci-scripts",
-  "version": "0.2.10",
+  "version": "0.2.11",
   "description": "A collection of shell scripts to ease CI jobs"
 }
