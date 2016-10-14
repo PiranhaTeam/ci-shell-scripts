@@ -26,10 +26,14 @@
 # - VERSION_TYPE: string, indicates if this is a release or development version
 #
 # The following environmental variables will be set by the script if they don't exist:
-# - DEPLOY: boolean, set to a default of false
-# - DEPLOY_DOCS: boolean, set to a default of false
-# - TEST_DOCS: boolean, set to a default of false
-# - COVERAGE: boolean, set to a default of false
+# - DO_DEPLOY: boolean, set to a default of false
+# - DO_DEPLOY_RELEASE: boolean, set to a default of false
+# - DO_DEPLOY_DEVELOP: boolean, set to a default of false
+# - DO_DEPLOY_DOCS: boolean, set to a default of false
+# - DO_DEPLOY_DOCS_RELEASE: boolean, set to a default of false
+# - DO_DEPLOY_DOCS_DEVELOP: boolean, set to a default of false
+# - DO_TEST_DOCS: boolean, set to a default of false
+# - DO_COVERAGE: boolean, set to a default of false
 #
 
 # Flag to know if this is a pull request
@@ -78,15 +82,45 @@ fi
 # Sets actual artifacts deployment flag
 if [ "${DEPLOY}" == "true" ] && [ "${pull_request}" == "false" ] && [ "${VERSION_TYPE}" != "other" ]; then
    export DO_DEPLOY=true;
+
+   if [ "${VERSION_TYPE}" == "master" ]; then
+      # Release artifacts
+      export DO_DEPLOY_RELEASE=true;
+      export DO_DEPLOY_DEVELOP=false;
+   elif [ "${VERSION_TYPE}" == "develop" ]; then
+      # Development artifacts
+      export DO_DEPLOY_RELEASE=false;
+      export DO_DEPLOY_DEVELOP=true;
+   else
+      export DO_DEPLOY_RELEASE=false;
+      export DO_DEPLOY_DEVELOP=false;
+   fi
 else
    export DO_DEPLOY=false;
+   export DO_DEPLOY_RELEASE=false;
+   export DO_DEPLOY_DEVELOP=false;
 fi
 
 # Sets actual documentation deployment flag
 if [ "${DEPLOY_DOCS}" == "true" ] && [ "${pull_request}" == "false" ] && [ "${VERSION_TYPE}" != "other" ]; then
    export DO_DEPLOY_DOCS=true;
+
+   if [ "${VERSION_TYPE}" == "master" ]; then
+      # Release docs
+      export DO_DEPLOY_DOCS_RELEASE=true;
+      export DO_DEPLOY_DOCS_DEVELOP=false;
+   elif [ "${VERSION_TYPE}" == "develop" ]; then
+      # Development docs
+      export DO_DEPLOY_DOCS_RELEASE=false;
+      export DO_DEPLOY_DOCS_DEVELOP=true;
+   else
+      export DO_DEPLOY_DOCS_RELEASE=false;
+      export DO_DEPLOY_DOCS_DEVELOP=false;
+   fi
 else
    export DO_DEPLOY_DOCS=false;
+   export DO_DEPLOY_DOCS_RELEASE=false;
+   export DO_DEPLOY_DOCS_DEVELOP=false;
 fi
 
 # Sets actual documentation deployment flag
@@ -98,7 +132,11 @@ fi
 
 echo "CI environmental variables set:";
 echo "VERSION_TYPE: ${VERSION_TYPE}";
-echo "DO_TEST_DOCS: ${DO_TEST_DOCS}";
 echo "DO_DEPLOY: ${DO_DEPLOY}";
+echo "DO_DEPLOY_RELEASE: ${DO_DEPLOY_RELEASE}";
+echo "DO_DEPLOY_DEVELOP: ${DO_DEPLOY_DEVELOP}";
 echo "DO_DEPLOY_DOCS: ${DO_DEPLOY_DOCS}";
+echo "DO_DEPLOY_DOCS_RELEASE: ${DO_DEPLOY_DOCS_RELEASE}";
+echo "DO_DEPLOY_DOCS_DEVELOP: ${DO_DEPLOY_DOCS_DEVELOP}";
 echo "DO_COVERAGE: ${DO_COVERAGE}";
+echo "DO_TEST_DOCS: ${DO_TEST_DOCS}";
