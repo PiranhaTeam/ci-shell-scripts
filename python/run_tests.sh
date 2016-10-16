@@ -14,13 +14,15 @@ profile=${2:-}
 
 if [ "${tests}" == "true" ]; then
 
-    tox -e "${profile}"
+   echo "Running tests for the ${profile} profile"
+
+   tox -e "${profile}"
 
    exit 0
 
 else
 
-   echo "Tests won't be run"
+   echo "Tests for the ${profile} profile won't be run"
 
    exit 0
 
