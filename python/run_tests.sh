@@ -9,6 +9,11 @@
 # $1: A string, containing the profile to run.
 #
 
+# Fails if any used variable is not set
+set -o nounset
+# Fails if any commands returns a non-zero value
+set -e
+
 tests=${1:-}
 profile=${2:-}
 

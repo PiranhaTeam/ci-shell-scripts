@@ -15,6 +15,11 @@
 # $2: A string, with the name of the project to update.
 #
 
+# Fails if any used variable is not set
+set -o nounset
+# Fails if any commands returns a non-zero value
+set -e
+
 deploy=${1:-}
 project=${2:-}
 

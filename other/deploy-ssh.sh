@@ -22,6 +22,11 @@
 # $1: A flow control boolean flag, indicating if the script should be run or not.
 #
 
+# Fails if any used variable is not set
+set -o nounset
+# Fails if any commands returns a non-zero value
+set -e
+
 deploy=${1:-}
 
 # Expects a flow control parameter

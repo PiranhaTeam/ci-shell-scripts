@@ -9,6 +9,11 @@
 # $2: A string, with the path to the Sphinx source files.
 #
 
+# Fails if any used variable is not set
+set -o nounset
+# Fails if any commands returns a non-zero value
+set -e
+
 deploy=${1:-}
 path=${2:-}
 
