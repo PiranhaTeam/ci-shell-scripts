@@ -83,7 +83,7 @@ fi
 if [ "${DEPLOY}" == "true" ] && [ "${pull_request}" == "false" ] && [ "${VERSION_TYPE}" != "other" ]; then
    export DO_DEPLOY=true;
 
-   if [ "${VERSION_TYPE}" == "master" ]; then
+   if [ "${VERSION_TYPE}" == "release" ]; then
       # Release artifacts
       export DO_DEPLOY_RELEASE=true;
       export DO_DEPLOY_DEVELOP=false;
@@ -105,7 +105,7 @@ fi
 if [ "${DEPLOY_DOCS}" == "true" ] && [ "${pull_request}" == "false" ] && [ "${VERSION_TYPE}" != "other" ]; then
    export DO_DEPLOY_DOCS=true;
 
-   if [ "${VERSION_TYPE}" == "master" ]; then
+   if [ "${VERSION_TYPE}" == "release" ]; then
       # Release docs
       export DO_DEPLOY_DOCS_RELEASE=true;
       export DO_DEPLOY_DOCS_DEVELOP=false;
