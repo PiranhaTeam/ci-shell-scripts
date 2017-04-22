@@ -27,15 +27,21 @@
 # --- PROFILES ---
 #
 # One of two profiles may be set, depending on the type of version, which is read from
-# the VERSION_TYPE environmental variable:
+# the VERSION_TYPE environmental variable.
 #
-# - deploy-site-release: for setting up the release site deployment
-# - deploy-site-development: for setting up the development site deployment
+# By default these profiles are:
+#
+# - deployment-release: for setting up the release deployment
+# - deployment-development: for setting up the development deployment
+#
+# They can be changed through the parameters.
 #
 # -- PARAMETERS --
 #
 # The function expects the following parameters:
 # $1: A string, one of release|develop, otherwise it is ignored.
+# $2: A string, the name of the profile with the release deployment configuration.
+# $3: A string, the name of the profile with the snapshot deployment configuration.
 #
 # --- ENVIRONMENTAL VARIABLES ---
 #
@@ -56,6 +62,8 @@ set -o nounset
 set -e
 
 v_type=${1:-}
+profile_release=${2:-"deployment-release"}
+profile_develop=${3:-"deployment-development"}
 
 # The contents of the file are created
 {
@@ -103,16 +111,16 @@ v_type=${1:-}
    # Active profile
    # --------------
 
-   # These profiles are used to set the site repository info
+   # These profiles are used to set configuration specific to a version type
    if [ "${v_type}" == "release" ]; then
       # Release version
       echo "<activeProfiles>"
-         echo "<activeProfile>deploy-site-release</activeProfile>"
+         echo "<activeProfile>${profile_release}</activeProfile>"
       echo "</activeProfiles>"
    elif [ "${v_type}" == "develop" ]; then
       # Development version
       echo "<activeProfiles>"
-         echo "<activeProfile>deploy-site-development</activeProfile>"
+         echo "<activeProfile>${profile_develop}</activeProfile>"
       echo "</activeProfiles>"
    fi
 
@@ -124,5 +132,7 @@ v_type=${1:-}
 } >> ~/settings.xml
 
 echo "Created Maven settings file"
+echo "Releases profile: ${profile_release}"
+echo "Development profile: ${profile_develop}"
 
 exit 0
