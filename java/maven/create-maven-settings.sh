@@ -67,7 +67,7 @@ v_type=${1:-}
 
    echo "<servers>";
 
-   # Releases artifacts server
+   # Release artifacts server
    echo "<server>";
       echo "<id>releases</id>";
       echo "<username>\${env.DEPLOY_USER}</username>";
@@ -86,7 +86,7 @@ v_type=${1:-}
       echo "<username>\${env.DEPLOY_DEVELOP_USER}</username>";
       echo "<password>\${env.DEPLOY_DEVELOP_PASSWORD}</password>";
    echo "</server>";
-   # Release site server
+   # Development site server
    echo "<server>";
       echo "<id>site-development</id>";
       echo "<username>\${env.DEPLOY_DOCS_DEVELOP_USER}</username>";
