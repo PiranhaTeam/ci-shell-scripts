@@ -132,7 +132,5 @@ profile_develop=${3:-"deployment-development"}
 } >> ~/settings.xml
 
 echo "Created Maven settings file"
-echo "Releases profile: ${profile_release}"
-echo "Development profile: ${profile_develop}"
 
 exit 0
