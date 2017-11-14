@@ -128,13 +128,10 @@ profile_develop=${3:-"deployment-development"}
          echo "<id>deployment_site</id>"
          # This profile is used to define the deployment site URL
          echo "<properties>"
-            if [ "${v_type}" == "release" ]; then
-               # Release site
-               echo "<property>${DEPLOY_SITE}</property>"
-            elif [ "${v_type}" == "develop" ]; then
-               # Development site
-               echo "<property>${DEPLOY_DEVELOP_SITE}</property>"
-            fi
+            # Release site
+            echo "<site.release.url>${DEPLOY_SITE}</site.release.url>"
+            # Development site
+            echo "<site.develop.url>${DEPLOY_DEVELOP_SITE}</site.develop.url>"
          echo "</properties>"
       echo "</profile>";
 
