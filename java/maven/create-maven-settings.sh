@@ -83,7 +83,7 @@ profile_develop=${3:-"deployment-development"}
    echo "<servers>";
 
    # Release artifacts server
-   if [ -v "${DEPLOY_USER}" ]; then
+   if [ -n "${DEPLOY_USER}" ]; then
       echo "<server>";
          echo "<id>releases</id>";
          echo "<username>\${DEPLOY_USER}</username>";
@@ -91,7 +91,7 @@ profile_develop=${3:-"deployment-development"}
       echo "</server>";
    fi
    # Release site server
-   if [ -v "${DEPLOY_DOCS_USER}" ]; then
+   if [ -n "${DEPLOY_DOCS_USER}" ]; then
       echo "<server>";
          echo "<id>site</id>";
          echo "<username>\${DEPLOY_DOCS_USER}</username>";
@@ -100,7 +100,7 @@ profile_develop=${3:-"deployment-development"}
    fi
 
    # Development artifacts server
-   if [ -v "${DEPLOY_DEVELOP_USER}" ]; then
+   if [ -n "${DEPLOY_DEVELOP_USER}" ]; then
       echo "<server>";
          echo "<id>snapshots</id>";
          echo "<username>\${DEPLOY_DEVELOP_USER}</username>";
@@ -108,7 +108,7 @@ profile_develop=${3:-"deployment-development"}
       echo "</server>";
    fi
    # Development site server
-   if [ -v "${DEPLOY_DOCS_DEVELOP_USER}" ]; then
+   if [ -n "${DEPLOY_DOCS_DEVELOP_USER}" ]; then
       echo "<server>";
          echo "<id>site-development</id>";
          echo "<username>\${DEPLOY_DOCS_DEVELOP_USER}</username>";
