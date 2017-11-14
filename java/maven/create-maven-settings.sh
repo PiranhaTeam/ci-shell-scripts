@@ -76,30 +76,38 @@ profile_develop=${3:-"deployment-development"}
    echo "<servers>";
 
    # Release artifacts server
-   echo "<server>";
-      echo "<id>releases</id>";
-      echo "<username>\${env.DEPLOY_USER}</username>";
-      echo "<password>\${env.DEPLOY_PASSWORD}</password>";
-   echo "</server>";
+   if [ -v "${env.DEPLOY_USER}" ]; then
+	   echo "<server>";
+	      echo "<id>releases</id>";
+	      echo "<username>\${env.DEPLOY_USER}</username>";
+	      echo "<password>\${env.DEPLOY_PASSWORD}</password>";
+	   echo "</server>";
+   fi
    # Release site server
-   echo "<server>";
-      echo "<id>site</id>";
-      echo "<username>\${env.DEPLOY_DOCS_USER}</username>";
-      echo "<password>\${env.DEPLOY_DOCS_PASSWORD}</password>";
-   echo "</server>";
+   if [ -v "${env.DEPLOY_DOCS_USER}" ]; then
+	   echo "<server>";
+	      echo "<id>site</id>";
+	      echo "<username>\${env.DEPLOY_DOCS_USER}</username>";
+	      echo "<password>\${env.DEPLOY_DOCS_PASSWORD}</password>";
+	   echo "</server>";
+   fi
 
    # Development artifacts server
-   echo "<server>";
-      echo "<id>snapshots</id>";
-      echo "<username>\${env.DEPLOY_DEVELOP_USER}</username>";
-      echo "<password>\${env.DEPLOY_DEVELOP_PASSWORD}</password>";
-   echo "</server>";
+   if [ -v "${env.DEPLOY_DEVELOP_USER}" ]; then
+	   echo "<server>";
+	      echo "<id>snapshots</id>";
+	      echo "<username>\${env.DEPLOY_DEVELOP_USER}</username>";
+	      echo "<password>\${env.DEPLOY_DEVELOP_PASSWORD}</password>";
+	   echo "</server>";
+   fi
    # Development site server
-   echo "<server>";
-      echo "<id>site-development</id>";
-      echo "<username>\${env.DEPLOY_DOCS_DEVELOP_USER}</username>";
-      echo "<password>\${env.DEPLOY_DOCS_DEVELOP_PASSWORD}</password>";
-   echo "</server>";
+   if [ -v "${env.DEPLOY_DOCS_DEVELOP_USER}" ]; then
+	   echo "<server>";
+	      echo "<id>site-development</id>";
+	      echo "<username>\${env.DEPLOY_DOCS_DEVELOP_USER}</username>";
+	      echo "<password>\${env.DEPLOY_DOCS_DEVELOP_PASSWORD}</password>";
+	   echo "</server>";
+   fi
 
    echo "</servers>";
 
