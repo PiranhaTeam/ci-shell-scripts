@@ -46,14 +46,21 @@
 # --- ENVIRONMENTAL VARIABLES ---
 #
 # The following environmental variables are required by the script, but read by Maven:
+#
 # - DEPLOY_USER: string, user for the releases repo
 # - DEPLOY_PASSWORD: string, password for the releases repo
+#
 # - DEPLOY_DEVELOP_USER: string, user for the development repo
 # - DEPLOY_DEVELOP_PASSWORD: string, password for the development repo
+#
 # - DEPLOY_DOCS_USER: string, user for the releases documentation site repo
 # - DEPLOY_DOCS_PASSWORD: string, password for the releases documentation site repo
+#
 # - DEPLOY_DOCS_DEVELOP_USER: string, user for the development documentation site repo
 # - DEPLOY_DOCS_DEVELOP_PASSWORD: string, password for the development documentation site repo
+#
+# - DEPLOY_SITE: string, path for deploying the Maven site
+# - DEPLOY_DEVELOP_SITE: string, path for deploying the development Maven site
 #
 
 # Fails if any used variable is not set
@@ -76,57 +83,75 @@ profile_develop=${3:-"deployment-development"}
    echo "<servers>";
 
    # Release artifacts server
-   echo "<server>";
-      echo "<id>releases</id>";
-      echo "<username>\${env.DEPLOY_USER}</username>";
-      echo "<password>\${env.DEPLOY_PASSWORD}</password>";
-   echo "</server>";
+   if [ -v "${DEPLOY_USER}" ]; then
+      echo "<server>";
+         echo "<id>releases</id>";
+         echo "<username>\${DEPLOY_USER}</username>";
+         echo "<password>\${DEPLOY_PASSWORD}</password>";
+      echo "</server>";
+   fi
    # Release site server
-   echo "<server>";
-      echo "<id>site</id>";
-      echo "<username>\${env.DEPLOY_DOCS_USER}</username>";
-      echo "<password>\${env.DEPLOY_DOCS_PASSWORD}</password>";
-   echo "</server>";
+   if [ -v "${DEPLOY_DOCS_USER}" ]; then
+      echo "<server>";
+         echo "<id>site</id>";
+         echo "<username>\${DEPLOY_DOCS_USER}</username>";
+         echo "<password>\${DEPLOY_DOCS_PASSWORD}</password>";
+      echo "</server>";
+   fi
 
    # Development artifacts server
-   echo "<server>";
-      echo "<id>snapshots</id>";
-      echo "<username>\${env.DEPLOY_DEVELOP_USER}</username>";
-      echo "<password>\${env.DEPLOY_DEVELOP_PASSWORD}</password>";
-   echo "</server>";
+   if [ -v "${DEPLOY_DEVELOP_USER}" ]; then
+      echo "<server>";
+         echo "<id>snapshots</id>";
+         echo "<username>\${DEPLOY_DEVELOP_USER}</username>";
+         echo "<password>\${DEPLOY_DEVELOP_PASSWORD}</password>";
+      echo "</server>";
+   fi
    # Development site server
-   echo "<server>";
-      echo "<id>site-development</id>";
-      echo "<username>\${env.DEPLOY_DOCS_DEVELOP_USER}</username>";
-      echo "<password>\${env.DEPLOY_DOCS_DEVELOP_PASSWORD}</password>";
-   echo "</server>";
+   if [ -v "${DEPLOY_DOCS_DEVELOP_USER}" ]; then
+      echo "<server>";
+         echo "<id>site-development</id>";
+         echo "<username>\${DEPLOY_DOCS_DEVELOP_USER}</username>";
+         echo "<password>\${DEPLOY_DOCS_DEVELOP_PASSWORD}</password>";
+      echo "</server>";
+   fi
 
    echo "</servers>";
+   
+   # --------
+   # Profiles
+   # --------
+   
+   echo "<profiles>";
+   
+      echo "<profile>";
+         echo "<id>deployment_site</id>"
+         # This profile is used to define the deployment site URL
+         echo "<properties>"
+            # Release site
+            echo "<site.release.url>${DEPLOY_SITE}</site.release.url>"
+            # Development site
+            echo "<site.develop.url>${DEPLOY_DEVELOP_SITE}</site.develop.url>"
+         echo "</properties>"
+      echo "</profile>";
 
-   # ---------------------
-   # Ends servers settings
-   # ---------------------
+   echo "</profiles>";
 
    # --------------
    # Active profile
    # --------------
 
    # These profiles are used to set configuration specific to a version type
-   if [ "${v_type}" == "release" ]; then
-      # Release version
-      echo "<activeProfiles>"
+   echo "<activeProfiles>"
+      if [ "${v_type}" == "release" ]; then
+         # Release version
          echo "<activeProfile>${profile_release}</activeProfile>"
-      echo "</activeProfiles>"
-   elif [ "${v_type}" == "develop" ]; then
-      # Development version
-      echo "<activeProfiles>"
+      elif [ "${v_type}" == "develop" ]; then
+         # Development version
          echo "<activeProfile>${profile_develop}</activeProfile>"
-      echo "</activeProfiles>"
-   fi
-
-   # -------------------
-   # Ends active profile
-   # -------------------
+      fi
+      echo "<activeProfile>deployment_site</activeProfile>"
+   echo "</activeProfiles>"
 
    echo "</settings>";
 } >> ~/settings.xml
