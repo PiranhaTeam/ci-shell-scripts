@@ -72,6 +72,9 @@ v_type=${1:-}
 profile_release=${2:-"deployment-release"}
 profile_develop=${3:-"deployment-development"}
 
+echo "Using development profile ${profile_develop}";
+echo "Using release profile ${profile_release}";
+
 # The contents of the file are created
 {
    echo "<settings>";
