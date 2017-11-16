@@ -59,8 +59,8 @@
 # - DEPLOY_DOCS_DEVELOP_USER: string, user for the development documentation site repo
 # - DEPLOY_DOCS_DEVELOP_PASSWORD: string, password for the development documentation site repo
 #
-# - DEPLOY_SITE: string, path for deploying the Maven site
-# - DEPLOY_DEVELOP_SITE: string, path for deploying the development Maven site
+# - DEPLOY_DOCS_SITE: string, path for deploying the Maven site
+# - DEPLOY_DOCS_DEVELOP_SITE: string, path for deploying the development Maven site
 #
 
 # Fails if any used variable is not set
@@ -71,6 +71,9 @@ set -e
 v_type=${1:-}
 profile_release=${2:-"deployment-release"}
 profile_develop=${3:-"deployment-development"}
+
+echo "Using development profile ${profile_develop}";
+echo "Using release profile ${profile_release}";
 
 # The contents of the file are created
 {
@@ -129,9 +132,9 @@ profile_develop=${3:-"deployment-development"}
          # This profile is used to define the deployment site URL
          echo "<properties>"
             # Release site
-            echo "<site.release.url>${DEPLOY_SITE}</site.release.url>"
+            echo "<site.release.url>${DEPLOY_DOCS_SITE}</site.release.url>"
             # Development site
-            echo "<site.develop.url>${DEPLOY_DEVELOP_SITE}</site.develop.url>"
+            echo "<site.develop.url>${DEPLOY_DOCS_DEVELOP_SITE}</site.develop.url>"
          echo "</properties>"
       echo "</profile>";
 
