@@ -63,8 +63,6 @@
 # - DEPLOY_DOCS_DEVELOP_SITE: string, path for deploying the development Maven site
 #
 
-# Fails if any used variable is not set
-set -o nounset
 # Fails if any commands returns a non-zero value
 set -e
 
