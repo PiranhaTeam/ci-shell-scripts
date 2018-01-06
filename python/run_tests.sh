@@ -1,10 +1,15 @@
 #!/bin/bash
 #
-# Function for running the project tests. A flow flag is received, indicating if
-# the deployment should be done or not.
+# Function for running the tests of a Python project. A flow flag is received,
+# indicating if the deployment should be done or not.
 #
 # It gives support for test profiles. If one is received then it will be used
 # when running the tests.
+#
+# -- REQUIREMENTS --
+#
+# A setup.py file, prepared with a 'test' goal. If a test profile is used then
+# the file should offer a '-p' argument for receiving said profile.
 #
 # -- PARAMETERS --
 #

@@ -33,6 +33,7 @@ if [ "${deploy}" == "true" ]; then
 
    # The echo is for the prompt when deploying through sftp
    if [ -n "${profile}" ]; then
+      echo "Using profile ${profile}"
       echo yes | mvn site site:deploy -P "${profile}" --settings ~/settings.xml
    else
       echo yes | mvn site site:deploy --settings ~/settings.xml
