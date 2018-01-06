@@ -17,17 +17,21 @@ set -e
 tests=${1:-}
 profile=${2:-}
 
+# Expects a flow control parameter
 if [ "${tests}" == "true" ]; then
 
-   echo "Running tests for the ${profile} profile"
-
-   python setup.py test -p "${profile}"
+   if [ -n "${profile}" ]; then
+      echo "Using profile ${profile}"
+      python setup.py test -p "${profile}"
+   else
+      python setup.py test
+   fi
 
    exit 0
 
 else
 
-   echo "Tests for the ${profile} profile won't be run"
+   echo "Tests won't be run"
 
    exit 0
 
