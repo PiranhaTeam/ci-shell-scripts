@@ -21,7 +21,7 @@ if [ "${tests}" == "true" ]; then
 
    echo "Running tests for the ${profile} profile"
 
-   tox -e "${profile}"
+   python setup.py test -p "${profile}"
 
    exit 0
 
