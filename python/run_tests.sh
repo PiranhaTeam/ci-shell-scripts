@@ -1,6 +1,10 @@
 #!/bin/bash
 #
-# Runs the tests for a specific profile.
+# Function for running the project tests. A flow flag is received, indicating if
+# the deployment should be done or not.
+#
+# It gives support for test profiles. If one is received then it will be used
+# when running the tests.
 #
 # -- PARAMETERS --
 #
