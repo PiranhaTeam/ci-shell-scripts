@@ -1,46 +1,37 @@
 # CI Shell Scripts
 
-Shell scripts taking care of common jobs related to Continuous Integration. While meant for [Travis CI][travis] these work on any Linux system.
+Shell scripts for common Continous Integration tasks. They are meant for [Travis CI][travis].
 
-These scripts can be used in any project, but were prepared for my own ones, and in some cases may expect a specific way of working.
+While they are meant to be generic, these scripts were prepared for my own projects, and in some cases may have very specific requirements.
 
-To see some examples of how these scripts are meant to be used, take a look at these template projects:
+To see how these scripts are meant to be used, take a look at these template projects:
 
-- [Library Maven Archetype][library-archetype]
+- [Library Maven Archetype][library_archetype]
 - [Cookiecutter Python Library][cookiecutter-python]
 
 ## Features
 
 - Setting up the Travis CI environment
-- Deploying Maven artifacts, including the Maven site
+- Deploying Maven artifacts, including the Maven site and JARs
+- CI flow control, run or skip scripts based on the context
 
 ## Usage
 
-These scripts should be imported into the project environment, and then run as part of the CI process. As these are just shell scripts they can be copied into any folder, and be run just by calling them.
-
-For example, supposing the scripts are in the ~/.scripts folder, to create the Maven settings file the following line can be used:
-
-```
-~/.scripts/java/maven/create-maven-settings.sh $VERSION_TYPE
-```
-
-To find out the exact requirements of each script check its comments.
-
-Example Travis files are included, showing how they are meant to be used.
-
-### Prerequisites
-
-These are shell scripts, meant for a Linux system, and requiring a shell interpreter.
-
-### Installing
-
-The scripts should be taken from the repo prior to being used. It is recommended taking them from a specific tag, just like this:
+To use them copy the repository. Use a specific tag to ensure having always the same version:
 
 ```
 git clone -b [tag] --single-branch https://github.com/Bernardo-MG/ci-shell-scripts.git ~/.scripts
 ```
 
-With this the scripts will be located in the ~/.scripts folder.
+In this case they are copied to the ~/.scripts folder.
+
+Ensure they have execution permissions:
+
+```
+chmod -R +x ~/.scripts/*
+```
+
+To find out the exact requirements of each script check its comments.
 
 ## Collaborate
 
@@ -60,7 +51,7 @@ If you wish to fork or modify the code, visit the [GitHub project page][scm], wh
 ## License
 The project has been released under the [MIT License][license].
 
-[library-archetype]: https://github.com/Bernardo-MG/library-maven-archetype
+[library_archetype]: https://github.com/Bernardo-MG/library-maven-archetype
 [cookiecutter-python]: https://github.com/Bernardo-MG/cookiecutter-python-library
 
 [issues]: https://github.com/Bernardo-MG/ci-shell-scripts/issues
