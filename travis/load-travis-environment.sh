@@ -104,6 +104,7 @@ if [ "${DEPLOY}" == "true" ] && [ "${pull_request}" == "false" ] && [ "${VERSION
    fi
 else
    # Deployment disabled
+   echo "Artifacts deployment disabled";
    export DO_DEPLOY=false;
    export DO_DEPLOY_RELEASE=false;
    export DO_DEPLOY_DEVELOP=false;
@@ -128,6 +129,7 @@ if [ "${DEPLOY_DOCS}" == "true" ] && [ "${pull_request}" == "false" ] && [ "${VE
    fi
 else
    # Deployment disabled
+   echo "Docs deployment disabled";
    export DO_DEPLOY_DOCS=false;
    export DO_DEPLOY_DOCS_RELEASE=false;
    export DO_DEPLOY_DOCS_DEVELOP=false;
@@ -138,6 +140,7 @@ if [ "${COVERAGE}" == "true" ] && [ "${pull_request}" == "false" ] && [ "${VERSI
    export DO_COVERAGE=true;
 else
    # Coverage disabled
+   echo "Coverage disabled";
    export DO_COVERAGE=false;
 fi
 
