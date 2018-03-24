@@ -19,13 +19,19 @@
 # The following environmental variables are required by the script:
 # - TRAVIS_BRANCH: string, Travis variable with the name of the SCM branch from which the code was taken
 # - TRAVIS_PULL_REQUEST: boolean, Travis CI flag indicating if this is a pull request
+#
+# The following environmental variables are required by the script but will be set to false if they don't exist:
+# - COVERAGE: boolean, flag indicating if a coverage task will be run
 # - DEPLOY: boolean, flag indicating if the artifacts will be deployed
 # - DEPLOY_DOCS: boolean, flag indicating if the documents will be deployed
+# - TEST_DOCS: boolean, flag indicating if the docs will be tested
 #
-# The following environmental variables will be set by the script:
+# They will be used as control flags for setting the final environment variables.
+#
+# The following environmental variables will be set by the script to help generating the final variables:
 # - VERSION_TYPE: string, indicates if this is a release or development version
 #
-# The following environmental variables will be set by the script if they don't exist:
+# The following environmental variables will be set by the script:
 # - DO_DEPLOY: boolean, set to a default of false
 # - DO_DEPLOY_RELEASE: boolean, set to a default of false
 # - DO_DEPLOY_DEVELOP: boolean, set to a default of false
@@ -45,6 +51,12 @@ if [ -z "${TEST_DOCS}" ]; then
    export TEST_DOCS=false;
 fi
 
+# Flag for test coverage
+# Defaults to false
+if [ -z "${COVERAGE}" ]; then
+   export COVERAGE=false;
+fi
+
 # Flag for deploying artifacts
 # Defaults to false
 if [ -z "${DEPLOY}" ]; then
@@ -55,12 +67,6 @@ fi
 # Defaults to false
 if [ -z "${DEPLOY_DOCS}" ]; then
    export DEPLOY_DOCS=false;
-fi
-
-# Flag for test coverage
-# Defaults to false
-if [ -z "${COVERAGE}" ]; then
-   export COVERAGE=false;
 fi
 
 # Flag to know if this is a release or a development version
@@ -92,10 +98,12 @@ if [ "${DEPLOY}" == "true" ] && [ "${pull_request}" == "false" ] && [ "${VERSION
       export DO_DEPLOY_RELEASE=false;
       export DO_DEPLOY_DEVELOP=true;
    else
+      # Unknown version type
       export DO_DEPLOY_RELEASE=false;
       export DO_DEPLOY_DEVELOP=false;
    fi
 else
+   # Deployment disabled
    export DO_DEPLOY=false;
    export DO_DEPLOY_RELEASE=false;
    export DO_DEPLOY_DEVELOP=false;
@@ -114,10 +122,12 @@ if [ "${DEPLOY_DOCS}" == "true" ] && [ "${pull_request}" == "false" ] && [ "${VE
       export DO_DEPLOY_DOCS_RELEASE=false;
       export DO_DEPLOY_DOCS_DEVELOP=true;
    else
+      # Unknown version type
       export DO_DEPLOY_DOCS_RELEASE=false;
       export DO_DEPLOY_DOCS_DEVELOP=false;
    fi
 else
+   # Deployment disabled
    export DO_DEPLOY_DOCS=false;
    export DO_DEPLOY_DOCS_RELEASE=false;
    export DO_DEPLOY_DOCS_DEVELOP=false;
@@ -127,6 +137,7 @@ fi
 if [ "${COVERAGE}" == "true" ] && [ "${pull_request}" == "false" ] && [ "${VERSION_TYPE}" != "other" ]; then
    export DO_COVERAGE=true;
 else
+   # Coverage disabled
    export DO_COVERAGE=false;
 fi
 
