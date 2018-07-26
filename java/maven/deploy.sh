@@ -33,9 +33,9 @@ if [ "${deploy}" == "true" ]; then
 
    if [ -n "${profile}" ]; then
       echo "Using profile ${profile}"
-      mvn deploy -P "${profile}" -Denforcer.skip=true --settings ~/settings.xml
+      mvn deploy -Denforcer.skip=true -P "${profile}"  --settings ~/settings.xml
    else
-      mvn deploy --settings -Denforcer.skip=true ~/settings.xml
+      mvn deploy -Denforcer.skip=true --settings  ~/settings.xml
    fi
 
    exit 0
